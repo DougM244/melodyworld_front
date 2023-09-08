@@ -10,20 +10,6 @@
           <label for="cpf">CPF:</label>
           <input v-model="cpf" type="text" id="cpf" required>
         </div>
-        <div class="form-group">
-          <label for="senha">Senha:</label>
-          <input v-model="senha" type="password" id="senha" required>
-        </div>
-        <!-- Caixa de seleção para escolher o cargo -->
-        <div class="form-group">
-          <label for="cargo">Cargo:</label>
-          <select v-model="selectedCargo" id="cargo" required>
-            <option value="">Selecione o Cargo</option>
-            <option value="Gerente">Gerente</option>
-            <option value="Funcionário">Funcionário</option>
-          </select>
-        </div>
-        <!-- Fim da caixa de seleção de cargo -->
         <div class="address-group">
           <h3>Endereço</h3>
           <div class="form-group">
@@ -64,7 +50,6 @@ export default {
     return {
       nome: '',
       cpf: '',
-      senha: '',
       address: {
         rua: '',
         numero: '',
@@ -72,8 +57,7 @@ export default {
         bairro: '',
         cidade: '',
         estado: '',
-      },
-      selectedCargo: '',
+      }
     };
   },
   methods: {
@@ -82,13 +66,11 @@ export default {
         const funcionario = {
           nome: this.nome,
           cpf: this.cpf,
-          senha: this.senha,
-          cargo: this.selectedCargo,
           endereco: this.address,
         };
 
         // Substitua a URL abaixo pela URL real do seu backend
-        const response = await axios.post('URL_DO_SEU_BACKEND', funcionario);
+        const response = await axios.post('http://localhost:8084/api/Funcionarios/salvarFuncionario', funcionario);
 
         // Lide com a resposta do backend aqui, se necessário
         console.log('Resposta do servidor:', response.data);
@@ -96,8 +78,6 @@ export default {
         // Limpe os campos do formulário após o envio bem-sucedido
         this.nome = '';
         this.cpf = '';
-        this.senha = '';
-        this.selectedCargo = '';
         this.address = {
           rua: '',
           numero: '',
