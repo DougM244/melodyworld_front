@@ -57,34 +57,64 @@
   </template>
   
   <script>
-  export default {
-    data() {
-      return {
-        nome: '',
-        cpf: '',
-        senha: '',
-        address: {
+import axios from 'axios';
+
+export default {
+  data() {
+    return {
+      nome: '',
+      cpf: '',
+      senha: '',
+      address: {
+        rua: '',
+        numero: '',
+        cep: '',
+        bairro: '',
+        cidade: '',
+        estado: '',
+      },
+      selectedCargo: '',
+    };
+  },
+  methods: {
+    async register() {
+      try {
+        const funcionario = {
+          nome: this.nome,
+          cpf: this.cpf,
+          senha: this.senha,
+          cargo: this.selectedCargo,
+          endereco: this.address,
+        };
+
+        // Substitua a URL abaixo pela URL real do seu backend
+        const response = await axios.post('URL_DO_SEU_BACKEND', funcionario);
+
+        // Lide com a resposta do backend aqui, se necessário
+        console.log('Resposta do servidor:', response.data);
+
+        // Limpe os campos do formulário após o envio bem-sucedido
+        this.nome = '';
+        this.cpf = '';
+        this.senha = '';
+        this.selectedCargo = '';
+        this.address = {
           rua: '',
           numero: '',
           cep: '',
           bairro: '',
           cidade: '',
           estado: '',
-        },
-        selectedCargo: '',
-      };
+        };
+      } catch (error) {
+        // Lide com erros aqui, se houver algum problema na solicitação
+        console.error('Erro ao enviar os dados:', error);
+      }
     },
-    methods: {
-      register() {
-        console.log("Nome:", this.nome);
-        console.log("CPF:", this.cpf);
-        console.log("Senha:", this.senha);
-        console.log("Cargo:", this.selectedCargo);
-        console.log("Endereço:", this.address);
-      },
-    },
-  };
-  </script>
+  },
+};
+</script>
+
   
   <style>
   .registration-form {
