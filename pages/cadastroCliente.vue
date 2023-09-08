@@ -43,57 +43,48 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import axios from 'axios';
 
-export default {
-  data() {
-    return {
-      nome: '',
-      cpf: '',
-      address: {
-        rua: '',
-        numero: '',
-        cep: '',
-        bairro: '',
-        cidade: '',
-        estado: '',
-      },
-    };
-  },
-  methods: {
-    async register() {
-      try {
-        const cliente = {
-          nome: this.nome,
-          cpf: this.cpf,
-          endereco: this.address,
-        };
-
-        // Substitua a URL abaixo pela URL real do seu backend
-        const response = await axios.post('URL_DO_SEU_BACKEND', funcionario);
-
-        // Lide com a resposta do backend aqui, se necessário
-        console.log('Resposta do servidor:', response.data);
-
-        // Limpe os campos do formulário após o envio bem-sucedido
-        this.nome = '';
-        this.cpf = '';
-        this.address = {
-          rua: '',
-          numero: '',
-          cep: '',
-          bairro: '',
-          cidade: '',
-          estado: '',
-        };
-      } catch (error) {
-        // Lide com erros aqui, se houver algum problema na solicitação
-        console.error('Erro ao enviar os dados:', error);
-      }
-    },
-  },
+const nome = '';
+const cpf = '';
+const address = {
+  rua: '',
+  numero: '',
+  cep: '',
+  bairro: '',
+  cidade: '',
+  estado: '',
 };
+
+async function register() {
+  try {
+    const cliente = {
+      nome,
+      cpf,
+      address,
+    };
+
+    // Substitua a URL abaixo pela URL real do seu backend
+    const response = await axios.post('URL_DO_SEU_BACKEND', cliente);
+
+    // Lide com a resposta do backend aqui, se necessário
+    console.log('Resposta do servidor:', response.data);
+
+    // Limpe os campos do formulário após o envio bem-sucedido
+    nome.value = '';
+    cpf.value = '';
+    address.rua = '';
+    address.numero = '';
+    address.cep = '';
+    address.bairro = '';
+    address.cidade = '';
+    address.estado = '';
+  } catch (error) {
+    // Lide com erros aqui, se houver algum problema na solicitação
+    console.error('Erro ao enviar os dados:', error);
+  }
+}
 </script>
 
 <style>
